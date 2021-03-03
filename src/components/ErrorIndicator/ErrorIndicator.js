@@ -3,7 +3,7 @@ import './ErrorIndicator.scss'
 
 const ErrorIndicator = () => {
   return (
-    <div>
+    <div className="py-4">
       Error!
     </div>
   )

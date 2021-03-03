@@ -1,0 +1,62 @@
+{
+	"plugins": [
+		"jam3",
+		"only-warn"
+	],
+	"extends": [
+		"airbnb",
+		"airbnb/hooks"
+	],
+	"globals": {
+		"window": true,
+		"document": true,
+		"localStorage": true,
+		"sessionStorage": true,
+		"Math": true,
+		"Object": true,
+		"isNaN": true,
+		"FormData": true,
+		"FileReader": true,
+		"Blob": true,
+		"File": true,
+		"navigator": true
+	},
+	"parser": "babel-eslint",
+	"rules": {
+		"react/jsx-props-no-spreading": "off",
+		"import/prefer-default-export": "off",
+		"import/no-unresolved": "off",
+		"react/jsx-filename-extension": [
+			1,
+			{
+				"extensions": [
+					".js",
+					".jsx"
+				]
+			}
+		],
+		"import/imports-first": [
+			"warn",
+			"absolute-first"
+		],
+		"import/newline-after-import": "warn",
+		"jam3/no-sanitizer-with-danger": [
+			2,
+			{
+				"wrapperName": [
+					"your-own-sanitizer-function-name"
+				]
+			}
+		],
+		"linebreak-style": 0
+	},
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"paths": [
+					"src"
+				]
+			}
+		}
+	}
+}
