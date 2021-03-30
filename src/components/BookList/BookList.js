@@ -28,7 +28,7 @@ const BookList = ({ books, onAddedToCart }) => {
       }
     </ul>
   )
-}
+};
 
 class BookListContainer extends Component {
 
@@ -49,19 +49,19 @@ class BookListContainer extends Component {
 
     return <BookList books={books} onAddedToCart={onAddedToCart} />
   }
-}
+};
 
 
 const mapStateToProps = ({ books, loading, error }) => {
   return { books, loading, error }
-}
+};
 
 const mapDispatchToProps = (dispatch, { bookstoreService }) => {
   return {
     fetchBooks: fetchBooks(bookstoreService, dispatch),
     onAddedToCart: (id) => dispatch(bookAddedToCart(id))
   }
-}
+};
 
 export default compose(
   withBookstoreService(),

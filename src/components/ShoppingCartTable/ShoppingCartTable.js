@@ -6,7 +6,7 @@ import './ShoppingCartTable.scss';
 const ShoppingCartTable = ({ items, total, onIncrease, onDecrease, onDelete }) => {
 
   const renderRow = (item, idx) => {
-    const { id, name, count, total } = item;
+    const { id, title, count, total } = item;
 
     return (
       <tr key={id}>
@@ -16,7 +16,7 @@ const ShoppingCartTable = ({ items, total, onIncrease, onDecrease, onDelete }) =
         </td>
 
         <td>
-          {name}
+          {title}
         </td>
 
         <td>
@@ -50,7 +50,7 @@ const ShoppingCartTable = ({ items, total, onIncrease, onDecrease, onDelete }) =
   };
 
   return (
-    <div className="shopping-cart-table">
+    <div classtitle="shopping-cart-table">
 
       <h2>Yout Order</h2>
 
