@@ -1,4 +1,4 @@
-import { BOOKS_LOADED, BOOKS_REQUESTED, BOOKS_ERROR, BOOK_ADDED_TO_CART } from '../actions/types'
+import { BOOKS_LOADED, BOOKS_REQUESTED, BOOKS_ERROR, BOOK_ADDED_TO_CART, BOOK_INCREASE, BOOK_DECREASE, BOOK_DELETE } from '../actions/types'
 
 const initialState = {
   books: [],
@@ -24,6 +24,14 @@ const updateCartItems = (cartItems, item, idx) => {
   ]
 }
 
+const deleteCartItems = (cartItems, idx) => {
+
+  return [
+    ...cartItems.slice(0, idx),
+    ...cartItems.slice(idx + 1)
+  ]
+}
+
 const updateCartItem = (book, item = {}) => {
 
   const {
@@ -38,6 +46,23 @@ const updateCartItem = (book, item = {}) => {
     title,
     count: count + 1,
     total: total + book.price
+  }
+}
+
+const decreaseCartItem = (book, item = {}) => {
+
+  const {
+    id = book.id,
+    count = 0,
+    title = book.title,
+    total = 0
+  } = item;
+
+  return {
+    id,
+    title,
+    count: (count - 1) > 0 ? (count - 1) : 0,
+    total: (total - book.price) > 0 ? (total - book.price) : 0
   }
 }
 
@@ -80,6 +105,44 @@ const reducer = (state = initialState, action) => {
         ...state,
         cartItems: updateCartItems(state.cartItems, newItem, itemIndex)
       }
+
+    case BOOK_INCREASE:
+      const increaseBookId = action.payload;
+      const increaseBook = state.books.find((book) => book.id === increaseBookId);
+      const increaseitemIndex = state.cartItems.findIndex(({ id }) => id === increaseBookId);
+      const increaseItem = state.cartItems[increaseitemIndex];
+
+      const increaseNewItem = updateCartItem(increaseBook, increaseItem);
+
+      return {
+        ...state,
+        cartItems: updateCartItems(state.cartItems, increaseNewItem, increaseitemIndex)
+      }
+
+    case BOOK_DECREASE:
+      const decreaseItemId = action.payload;
+      const decreaseBook = state.books.find((book) => book.id === decreaseItemId);
+      const decreaseItemIndex = state.cartItems.findIndex(({ id }) => id === decreaseItemId);
+      const decreaseItem = state.cartItems[decreaseItemIndex];
+
+      const decreaseNewItem = decreaseCartItem(decreaseBook, decreaseItem);
+
+      return {
+        ...state,
+        cartItems: updateCartItems(state.cartItems, decreaseNewItem, decreaseItemIndex)
+      }
+
+    case BOOK_DELETE:
+      const deleteItemId = action.payload;
+      // const deleteBook = state.books.find((book) => book.id === deleteItemId);
+      const deleteItemIndex = state.cartItems.findIndex(({ id }) => id === deleteItemId);
+      // const deleteItem = state.cartItems[deleteItemIndex];
+
+      return {
+        ...state,
+        cartItems: deleteCartItems(state.cartItems, deleteItemIndex)
+      }
+
 
     default:
       return state;
